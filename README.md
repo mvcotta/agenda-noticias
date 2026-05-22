@@ -1,2 +1,0 @@
-# agenda-noticias
-agenda-noticias
