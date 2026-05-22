@@ -63,14 +63,25 @@ async function carregar() {
 
       html += `<div class="portal"><h2>${feed.nome}</h2>`;
 
-      data.items.slice(0, 10).forEach(noticia => {
-        html += `
-          <div class="noticia">
-            <a href="${noticia.link}" target="_icia.title}
-            </a>
-          </div>
-        `;
-      });
+      if (!data.items || data.items.length === 0) {
+        html += "<p>Sem notícias disponíveis</p>";
+      } else {
+        data.items.slice(0, 7).forEach(noticia => {
+          let link = noticia.link || "#";
+
+          // CORREÇÃO DO LINK DO G1 (às vezes vem bugado)
+          if (link.includes("g1.globo.com") === false && feed.nome === "G1") {
+            link = noticia.guid || link;
+          }
+
+          html += `
+            <div class="noticia">
+              <a href="${             ${noticia.title}
+              </a>
+            </div>
+          `;
+        });
+      }
 
       html += "</div>";
     } catch (e) {
